@@ -3,19 +3,19 @@
 }
 
 .container {
-  width: calc(14px * 50);
+  width: calc(8px * 100);
 }
 
 .row {
   overflow: auto;
-  height: 14px;
+  height: 8px;
 }
 
 .cell {
   border: 1px solid white;
   float: left;
-  width: 14px;
-  height: 14px;
+  width: 8px;
+  height: 8px;
 }
 
 .wall {

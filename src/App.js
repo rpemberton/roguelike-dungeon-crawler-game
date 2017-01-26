@@ -1,37 +1,11 @@
 import React from 'react';
-import Board from './components/Board';
+import Board from './Board';
 import './App.css';
 
-const mapWidth = 50;
-const mapHeight = 50;
+const mapWidth = 100;
+const mapHeight = 100;
 const wall = 0;
 const floor = 1;
-
-function addRoom(board) {
-    const minLength = 3;
-    const maxLength = 9;
-
-    const randY = Math.floor(Math.random() * 50);
-    const randX = Math.floor(Math.random() * 50);
-    
-    const randHeight = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-    const randWidth = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-
-    let tempBoard = JSON.parse(JSON.stringify(board));
-    let check = true;
-
-    for (let i = randY; i < randY + randHeight; i++) {
-      for (let j = randX; j < randX + randWidth; j++) {
-        if (i < mapHeight && tempBoard[i][j] === wall) {
-          tempBoard[i][j] = floor;
-        } else {
-          check = false;
-        }
-      }
-    }
-
-    if (check) {return tempBoard}
-}
 
 class App extends React.Component {
   constructor() {
@@ -46,36 +20,66 @@ class App extends React.Component {
   }
 
   boardGenerator() {
-    let board = [];
-
     // create blank board
+    let board = [];
     for (let i = 0; i < mapHeight; i++) {
       board.push(Array(mapWidth).fill(wall));
     }
 
-    // create left and right borders
-    for (let i = 0; i < mapHeight; i++) {
-      board[i][0] = 1;
-      board[i][mapWidth - 1] = 1;
-    }
-
-    // create top and bottom borders
-    for (let i = 0; i < mapWidth; i++) {
-      board[0][i] = 1;
-      board[mapHeight - 1][i] = 1;
-    }
-
     let newRoom = false;
-
     while (!newRoom) {
-      newRoom = addRoom(board);
+      newRoom = this.addRoom(board);
     }
 
     this.setState({
       board: newRoom
     });
   }
-  
+
+  addRoom(board) {
+    const minLength = 7;
+    const maxLength = 12;
+
+    const randY = Math.floor(Math.random() * mapHeight);
+    const randX = Math.floor(Math.random() * mapWidth);
+
+    //const randY = 40;
+    //const randX = 40;
+    
+    const randHeight = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    const randWidth = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+
+    let tempBoard = JSON.parse(JSON.stringify(board));
+
+    // check not outside top or bottom of map
+    if (randY < 1 || randY + randHeight > mapHeight - 1) {
+      return false;
+    }
+
+    // check not outside left or right of map
+    if (randX < 1 || randX + randWidth > mapWidth - 1) {
+      return false;
+    }
+
+    // check margin around room
+    for (let i = randY - 1; i < randY + randHeight + 1; i++) {
+      for (let j = randX - 1; j < randX + randWidth + 1; j++) {
+        if (tempBoard[i][j] === floor) {
+          return false;
+        }
+      }
+    }
+
+    // add room to map
+    for (let i = randY; i < randY + randHeight; i++) {
+      for (let j = randX; j < randX + randWidth; j++) {
+        tempBoard[i][j] = floor;
+      }
+    }
+
+    return tempBoard;
+  }
+
   render() {
     return(
       <div>
