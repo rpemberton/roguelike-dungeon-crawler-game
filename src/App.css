@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: calc(14px * 50);
+}
+
+.row {
+  overflow: auto;
+  height: 14px;
+}
+
+.cell {
+  border: 1px solid white;
+  float: left;
+  width: 14px;
+  height: 14px;
+}
+
+.wall {
+  background-color: gray;
+}
+
+.floor {
+  background-color: yellow;
+}
