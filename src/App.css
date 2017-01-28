@@ -3,7 +3,8 @@
 }
 
 .container {
-  width: calc(25px * 100);
+  width: calc(25px * 49);
+  margin: 0 auto;
 }
 
 .row {
@@ -25,4 +26,12 @@
 .floor {
   background-color: black;
   background-image: url(./floor.png)
+}
+
+.sprite:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+	background-image: url(https://s19.postimg.org/srvniri6r/rat.png);
 }

@@ -1,10 +1,19 @@
 import React from 'react';
 
-const wall = 0;
-
 class Cell extends React.Component {
   render() {
-    const cellType = this.props.cell === wall ? 'wall' : 'floor';
+  	let cellType = '';
+
+  	switch(this.props.cell) {
+  		case 1:
+  			cellType = 'floor'
+  			break;
+  		case 2:
+  			cellType = 'floor sprite'
+  			break;
+  		default: 
+  			cellType = 'wall'
+  	}
     return(
       <div id={this.props.id} className={'cell ' + cellType}></div>
     )
