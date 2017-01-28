@@ -3,24 +3,26 @@
 }
 
 .container {
-  width: calc(8px * 100);
+  width: calc(25px * 100);
 }
 
 .row {
   overflow: auto;
-  height: 8px;
+  height: 25px;
 }
 
 .cell {
   float: left;
-  width: 8px;
-  height: 8px;
+  width: 25px;
+  height: 25px;
 }
 
 .wall {
   background-color: gray;
+  background-image: url(./wall.png)
 }
 
 .floor {
-  background-color: yellow;
+  background-color: black;
+  background-image: url(./floor.png)
 }
