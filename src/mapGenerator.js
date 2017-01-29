@@ -11,12 +11,35 @@ function mapGenerator() {
   const healthTotal = 10;
   const weaponTotal = 2;
 
-  const wall = 0;
-  const floor = 1;
-  const sprite = 2;
-  const health = 3;
-  const weapon = 4;
-  const player = 5;
+  const wall = {
+    type: 'wall'
+  }
+
+  const floor = {
+    type: 'floor'
+  }
+
+  const health = {
+    type: 'health',
+    value: 10
+  }
+
+  const player = {
+    type: 'player'
+  }
+
+  const sprite = {
+    type: 'sprite',
+    health: 100,
+    attack: 10,
+    xp: 10
+  }
+
+  const weapon = {
+    type: 'weapon',
+    name: 'axe',
+    damage: 20
+  }
 
   let floorMap = [];
 
