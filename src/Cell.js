@@ -11,6 +11,15 @@ class Cell extends React.Component {
   		case 2:
   			cellType = 'floor sprite'
   			break;
+  		case 3:
+  			cellType = 'floor health'
+  			break;
+  		case 4:
+  			cellType = 'floor weapon'
+  			break;
+  		case 5:
+  			cellType = 'floor player'
+  			break;
   		default: 
   			cellType = 'wall'
   	}

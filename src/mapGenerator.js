@@ -1,22 +1,31 @@
-const rows = 49;
-const cols = 49;
-const rooms = 13;
-const minSize = 5;
-const maxSize = 9;
-const attempts = 500;
-const spritesTotal = 15;
-const wall = 0;
-const floor = 1;
-let sprite = 2;
-
-let floorMap = [];
-
 function mapGenerator() {
+  const rows = 49;
+  const cols = 49;
+  const rooms = 13;
+  const minSize = 5;
+  const maxSize = 9;
+
+  const attempts = 500;
+
+  const spritesTotal = 20;
+  const healthTotal = 10;
+  const weaponTotal = 2;
+
+  const wall = 0;
+  const floor = 1;
+  const sprite = 2;
+  const health = 3;
+  const weapon = 4;
+  const player = 5;
+
+  let floorMap = [];
+
   // create blank floorMap
   for (let i = 0; i < cols; i++) {
     floorMap.push(Array(rows).fill(wall));
   }
   
+  // check room + width/height does not fall outside map
   function isNotOutsideMap(floorMap, room) {
     // top and bottom
     if (room.y < 1 || room.y + room.h > rows - 1) {
@@ -29,6 +38,7 @@ function mapGenerator() {
     return true;
   }
   
+  // check room doesn't overlap with another
   function isNotOverlapping(floorMap, room) {
     for (let i = room.y - 1; i <= room.y + room.h; i++) {
       for (let j = room.x - 1; j <= room.x + room.w; j++) {
@@ -40,11 +50,13 @@ function mapGenerator() {
     return true;
   }
   
+  // generate random size wall
   function randomWallSize(min, max) {
     if (min === max) return max;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
+  // adds room to map
   function addRoom(floorMap) {
     let newRoom = {};
     let room = {
@@ -53,7 +65,6 @@ function mapGenerator() {
       y: Math.floor(Math.random() * (cols - 1 - 1)) + 1,
       x: Math.floor(Math.random() * (rows - 1 - 1)) + 1
     }
-    
     if (isNotOutsideMap(floorMap, room) && isNotOverlapping(floorMap, room)) {
       for (let i = room.y; i < room.y + room.h; i++) {
         for (let j = room.x; j < room.x + room.w; j++) {
@@ -65,6 +76,7 @@ function mapGenerator() {
     }
   }
   
+  // call addRoom until there are enough rooms
   let i = 0;
   let roomsArr = [];
   while (roomsArr.length < rooms && i < attempts) {
@@ -75,6 +87,7 @@ function mapGenerator() {
     i++
   }
   
+  // draw hallways between two room origins
   function linkRooms(r1, r2) {
     if (r1.y < r2.y) {
       for (i = r1.y; i < r2.y; i++) {
@@ -97,15 +110,17 @@ function mapGenerator() {
     }
   }
   
+  // iterate through rooms and link each pair until all are linked
   let count = 0;
   while (count < rooms - 1) {
     linkRooms(roomsArr[count], roomsArr[count + 1]);
     count++;
   }
 
+  let playerYX = [];
 
-  function addSprite() {
-
+  // randomly choose location for item
+  function placeItem(itemType) {
     const y = Math.floor(Math.random() * (cols - 1 - 1)) + 1;
     const x = Math.floor(Math.random() * (rows - 1 - 1)) + 1;
 
@@ -117,26 +132,42 @@ function mapGenerator() {
       }
     }
 
-    floorMap[y][x] = sprite;
+    floorMap[y][x] = itemType;
 
-    return true;
+    return [y, x];
   }
 
-  let spriteCount = 0;
-  let newSprite = false;
-  let spriteAttempts = 0;
+  playerYX = [];
 
-  while (spriteCount < spritesTotal && spriteAttempts < attempts) {
-    newSprite = addSprite();
-    if (newSprite) {
-      spriteCount++
+  function addItem(itemType, itemTotal) {
+    let i = 0;
+    let newItem = false;
+    let itemAttempts = 0;
+    while (i < itemTotal && itemAttempts < attempts) {
+      newItem = placeItem(itemType);
+      if (newItem) {
+        i++
+
+        if (itemType === player) {
+          playerYX = newItem
+        }
+
+      }
+      itemAttempts++
     }
-    spriteAttempts++
+
   }
-  
-  return floorMap;
+
+  addItem(sprite, spritesTotal);
+  addItem(health, healthTotal);
+  addItem(weapon, weaponTotal);
+  addItem(player, 1);
+
+  // return final floorMap array
+  return {
+    floorMap: floorMap,
+    playerYX: playerYX
+  };
 }
-
-
 
 export default mapGenerator;

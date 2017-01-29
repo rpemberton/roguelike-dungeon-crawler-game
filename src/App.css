@@ -35,3 +35,27 @@
     background-size: 100% auto;
 	background-image: url(https://s19.postimg.org/srvniri6r/rat.png);
 }
+
+.health:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+    background-image: url(https://s19.postimg.org/46urur8b7/chunk.png);
+}
+
+.weapon:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+	background-image: url(http://crawl.dalahest.se/sprites/sword.png);
+}
+
+.player:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+    background-color: red;
+}
