@@ -19,6 +19,7 @@ class App extends React.Component {
         x: mapValues.playerYX[1],
       },
       sprite: 'na',
+      gameOver: false
     }
   }
 
@@ -53,29 +54,58 @@ class App extends React.Component {
 
     const newCell = floorMap[newPos.y][newPos.x];
     const oldCell = floorMap[oldPos.y][oldPos.x];
+    let health = this.state.health;
+    let attack = this.state.attack;
+    let xp = this.state.xp;
 
-    if (newCell.type === 'health') {
+    if (newCell.name === 'health') {
       this.setState({
-        health: this.state.health + newCell.value
+        health: health + newCell.value
+      });
+    }
+
+    if (newCell.type === 'weapon') {
+      this.setState({
+        weapon: newCell.name,
+        attack: attack += newCell.damage
       });
     }
 
     if (newCell.type === 'sprite') {
-      newCell.health -= this.state.attack;
+      newCell.health -= attack;
+      health -= newCell.attack;
+
+      if (health <= 0) {
+        this.setState({
+          health: 0,
+          gameOver: true
+        });
+
+        this.handleGameOver();
+        return
+      }
+
       this.setState({
-        health: this.state.health - newCell.attack,
-        sprite: newCell.health,
+        health: health >= 0 ? health : 0,
+        sprite: newCell.health > 0 ? newCell.health : 'dead',
         floorMap: floorMap,
       });
-      if (newCell.health !== 0) {
+
+      if (newCell.health > 0) {
         return
+      } else {
+        this.setState({
+          xp: xp += newCell.xp,
+          attack: attack += newCell.xp
+        });
       }
     }
 
-    if (newCell.type !== 'wall') {
+    if (newCell.name !== 'wall') {
       newCell.type = 'player';
+      newCell.name = 'player';
       oldCell.type = 'floor';
-
+      oldCell.name = 'floor';
       this.setState({
         floorMap: floorMap,
         pos: newPos
@@ -83,16 +113,25 @@ class App extends React.Component {
     }
   }
 
+  handleGameOver = () => {
+    console.log('game over')
+  }
+
   render() {
     return(
-      <div>
+      <div className='container'>
         <Stats 
           health={this.state.health} 
           weapon={this.state.weapon} 
           xp={this.state.xp} 
           sprite={this.state.sprite}
+          attack={this.state.attack}
+          gameOver={this.state.gameOver}
         />
-        <Board floorMap={this.state.floorMap} />
+        <Board 
+          floorMap={this.state.floorMap} 
+          playerYX={this.state.pos}
+        />
       </div>
     )
   }

@@ -1,10 +1,15 @@
-* {
+html {
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 .container {
-  width: calc(25px * 49);
+  width: calc(25px * 50);
   margin: 0 auto;
+}
+
+.board {
+  width: calc(25px * 50);
 }
 
 .row {
@@ -33,7 +38,15 @@
     display: block;
     padding-bottom: 100%;
     background-size: 100% auto;
-	background-image: url(https://s19.postimg.org/srvniri6r/rat.png);
+	  background-image: url(https://s19.postimg.org/srvniri6r/rat.png);
+}
+
+.boss:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+    background-color: pink;
 }
 
 .health:after {
@@ -44,18 +57,26 @@
     background-image: url(https://s19.postimg.org/46urur8b7/chunk.png);
 }
 
-.weapon:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-	background-image: url(http://crawl.dalahest.se/sprites/sword.png);
-}
-
 .player:after {
     content: "";
     display: block;
     padding-bottom: 100%;
     background-size: 100% auto;
     background-color: red;
+}
+
+.sword:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+    background-image: url(http://crawl.dalahest.se/sprites/sword.png);
+}
+
+.axe:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    background-size: 100% auto;
+    background-color: purple;
 }

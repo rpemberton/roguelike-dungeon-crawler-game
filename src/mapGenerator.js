@@ -1,6 +1,6 @@
 function mapGenerator() {
-  const rows = 49;
-  const cols = 49;
+  const rows = 50;
+  const cols = 50;
   const rooms = 13;
   const minSize = 5;
   const maxSize = 9;
@@ -8,37 +8,55 @@ function mapGenerator() {
   const attempts = 500;
 
   const spritesTotal = 20;
-  const healthTotal = 10;
-  const weaponTotal = 2;
+  const healthTotal = 12;
 
   const wall = {
-    type: 'wall'
+    type: 'wall',
+    name: 'wall'
   }
 
   const floor = {
-    type: 'floor'
+    type: 'floor',
+    name: 'floor'
   }
 
   const health = {
     type: 'health',
-    value: 10
+    name: 'health',
+    value: 100
   }
 
   const player = {
-    type: 'player'
+    type: 'player',
+    name: 'player'
   }
 
   const sprite = {
     type: 'sprite',
+    name: 'sprite',
     health: 100,
-    attack: 10,
-    xp: 10
+    attack: 20,
+    xp: 2
   }
 
-  const weapon = {
+  const boss = {
+    type: 'sprite',
+    name: 'boss',
+    health: 300,
+    attack: 50,
+    xp: 0
+  }
+
+  const sword = {
+    type: 'weapon',
+    name: 'sword',
+    damage: 6
+  }
+
+  const axe = {
     type: 'weapon',
     name: 'axe',
-    damage: 20
+    damage: 10
   }
 
   let floorMap = [];
@@ -183,7 +201,9 @@ function mapGenerator() {
 
   addItem(sprite, spritesTotal);
   addItem(health, healthTotal);
-  addItem(weapon, weaponTotal);
+  addItem(boss, 1);
+  addItem(sword, 1);
+  addItem(axe, 1);
   addItem(player, 1);
 
   // return final floorMap array
