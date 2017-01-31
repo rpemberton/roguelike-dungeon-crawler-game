@@ -1,41 +1,41 @@
 import React from 'react';
 import Cell from './Cell';
 
-class Row extends React.Component {
-  render() {
+const Row = (props) => {
+  const x = props.playerYX.x;
+  const y = props.playerYX.y;
 
-    const cols = 50;
-    const padding = 10;
+  const cells = props.row.map((cell, i) => {
 
-    const x = this.props.playerYX.x;
+    if (i > x - 5 && i < x + 5) {
 
-    const cells = this.props.row.map((cell, i) => {
-      if (x >= padding && x <= cols - padding + 1) {
-        if (i > x - padding && i < x + padding) {
-          return <Cell id={'c' + i} key={i} cell={cell} />
-        }
+      if ((props.rowNumber === y - 4 || props.rowNumber === y + 4) && i !== x) {
+        return <Cell id={'c' + i} key={i} cell={cell} black={props.black} />
       }
 
-      if (x < padding) {
-        if (i < padding * 2 - 1) {
-          return <Cell id={'c' + i} key={i} cell={cell} />
-        }
+      if ((props.rowNumber === y - 3 || props.rowNumber === y + 3) && (i < x - 1 || i > x + 1)) {
+        return <Cell id={'c' + i} key={i} cell={cell} black={props.black} />
       }
 
-      if (x > cols - padding) {
-        if (i > cols - padding * 2) {
-          return <Cell id={'c' + i} key={i} cell={cell} />
-        }
+      if ((props.rowNumber === y - 2 || props.rowNumber === y + 2) && (i < x - 2 || i > x + 2)) {
+        return <Cell id={'c' + i} key={i} cell={cell} black={props.black} />
       }
-      return null
-    })
 
-    return(
-      <div id={this.props.id} className="row">
-        {cells}
-      </div>
-    )
-  }
+      if ((props.rowNumber === y - 1 || props.rowNumber === y + 1)  && (i < x - 3 || i > x + 3)) {
+        return <Cell id={'c' + i} key={i} cell={cell} black={props.black} />
+      }
+
+      return <Cell id={'c' + i} key={i} cell={cell} />
+    }
+
+    return null;
+  })
+
+  return(
+    <div id={props.id} className="row">
+      {cells}
+    </div>
+  )
 }
 
 export default Row;

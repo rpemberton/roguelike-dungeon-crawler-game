@@ -1,82 +1,134 @@
 html {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: 'Share Tech Mono', monospace;
+  color: white;
+}
+
+button {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+button:hover {
+  background-color: white;
+  border: 2px solid white;
+  color: black;
 }
 
 .container {
-  width: calc(25px * 50);
+  width: 400px;
+  height: 550px;
+  margin: 0 auto;
+  background-color: black;
+  padding: 40px;
+}
+
+.wrap {
+  width: calc(40px * 9);
   margin: 0 auto;
 }
 
+.stats {
+  height: 120px;
+  margin-bottom: 40px;
+}
+
+.title-txt {
+  margin-top: 0;
+}
+
 .board {
-  width: calc(25px * 50);
+  width: calc(40px * 9);
+  height: calc(40px * 9);
+  background-color: black;
+  color: white;
+  margin: 0 auto;
+}
+
+.game-over-txt {
+  font-size: 60px;
+  letter-spacing: 4px;
+  margin-top: 80px;
+}
+
+.lose {
+  color: red;
+}
+
+.win {
+  color: green;
 }
 
 .row {
   overflow: auto;
-  height: 25px;
+  height: 40px;
 }
 
 .cell {
   float: left;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
 }
 
 .wall {
   background-color: gray;
-  background-image: url(./wall.png)
+  background-image: url(./img/wall.png)
 }
+
 
 .floor {
   background-color: black;
-  background-image: url(./floor.png)
+  background-image: url(./img/floor.png);
 }
 
 .sprite:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-	  background-image: url(https://s19.postimg.org/srvniri6r/rat.png);
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(./img/sprite.png);
 }
 
 .boss:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-    background-color: pink;
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(./img/boss.png);
 }
 
 .health:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-    background-image: url(https://s19.postimg.org/46urur8b7/chunk.png);
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(./img/health.png);
 }
 
 .player:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-    background-color: red;
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(https://s19.postimg.org/bp3swnjbn/short_black.png), url(https://s19.postimg.org/wgvom5vbn/shirt_vest.png), url(https://s19.postimg.org/in7x2lhg3/pants_black.png), url(https://s19.postimg.org/o1644nsgj/short_brown.png), url(https://s19.postimg.org/anyytscyb/human_m.png);
 }
 
 .sword:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-    background-image: url(http://crawl.dalahest.se/sprites/sword.png);
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(./img/double_sword.png);
 }
 
 .axe:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-    background-size: 100% auto;
-    background-color: purple;
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+  background-size: 100% auto;
+  background-image: url(./img/dagger.png);
 }

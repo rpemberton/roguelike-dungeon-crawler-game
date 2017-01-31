@@ -1,41 +1,42 @@
 import React from 'react';
 import Row from './Row';
 
-class Board extends React.Component {
-  render() {
-
-    const rows = 50;
-    const padding = 10;
-
-    const y = this.props.playerYX.y;
-
-    const rowsArr = this.props.floorMap.map((row, i) => {
-      if (y >= padding && y <= rows - padding + 1) {
-        if (i > y - padding && i < y + padding) {
-          return <Row id={'r' + i} key={i} row={row} playerYX={this.props.playerYX}/>
-        }
-      }
-
-      if (y < padding) {
-        if (i < padding * 2 - 1) {
-          return <Row id={'r' + i} key={i} row={row} playerYX={this.props.playerYX}/>
-        }
-      }
-
-      if (y > rows - padding) {
-        if (i > rows - padding * 2) {
-          return <Row id={'r' + i} key={i} row={row} playerYX={this.props.playerYX}/>
-        }
-      }
-      return null
-    })
-
+const Board = (props) => {
+  if (props.gameOver) {
     return(
       <div className='board'>
-        {rowsArr}
+        <h1 className='game-over-txt lose'>GAME OVER</h1>
+        <button onClick={props.handleRestart}>RESTART</button>
       </div>
     )
   }
+
+  if (props.spritesAlive < 19) {
+    return(
+      <div className='board'>
+        <h1 className='game-over-txt win'>YOU WIN!</h1>
+        <button onClick={props.handleRestart}>RESTART</button>
+      </div>
+    )
+  }
+
+  const y = props.playerYX.y;
+  const black = {
+    backgroundColor: 'black'
+  };
+
+  const rowsArr = props.floorMap.map((row, i) => {
+    if (i > y - 5 && i < y + 5) {
+      return <Row id={'r' + i} key={i} rowNumber={i} row={row} black={black} playerYX={props.playerYX}/>
+    }
+    return null
+  })
+
+  return(
+    <div className='board'>
+      {rowsArr}
+    </div>
+  )
 }
 
 export default Board;

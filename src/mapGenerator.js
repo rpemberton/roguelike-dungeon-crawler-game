@@ -35,7 +35,7 @@ function mapGenerator() {
     type: 'sprite',
     name: 'sprite',
     health: 100,
-    attack: 20,
+    attack: 10,
     xp: 2
   }
 
@@ -43,7 +43,7 @@ function mapGenerator() {
     type: 'sprite',
     name: 'boss',
     health: 300,
-    attack: 50,
+    attack: 25,
     xp: 0
   }
 

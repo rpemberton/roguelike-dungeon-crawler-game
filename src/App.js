@@ -4,14 +4,16 @@ import Board from './Board';
 import mapGenerator from './mapGenerator';
 import './App.css';
 
-class App extends React.Component {
+//const audio = new Audio("http://zeldauniverse.s3.amazonaws.com/soundtracks/alinktothepastost/dark_world_dungeon.mp3");
+let mapValues = mapGenerator();
+
+class App extends React.Component {  
   constructor() {
-    const mapValues = mapGenerator();
     super();
     this.state = {
       floorMap: mapValues.floorMap,
       health: 100,
-      weapon: 'Punch',
+      weapon: 'knuckles',
       xp: 10,
       attack: 25,
       pos: {
@@ -19,12 +21,9 @@ class App extends React.Component {
         x: mapValues.playerYX[1],
       },
       sprite: 'na',
-      gameOver: false
+      gameOver: false,
+      spritesAlive: 20
     }
-  }
-
-  componentWillMount() {
-    window.addEventListener('keydown', this.handlePlayerMove);
   }
 
   handlePlayerMove = (e) => {
@@ -57,10 +56,11 @@ class App extends React.Component {
     let health = this.state.health;
     let attack = this.state.attack;
     let xp = this.state.xp;
+    const spritesAlive = this.state.spritesAlive;
 
     if (newCell.name === 'health') {
       this.setState({
-        health: health + newCell.value
+        health: health + newCell.value < 100 ? health + newCell.value : 100
       });
     }
 
@@ -72,16 +72,14 @@ class App extends React.Component {
     }
 
     if (newCell.type === 'sprite') {
-      newCell.health -= attack;
-      health -= newCell.attack;
+      newCell.health -= Math.floor((Math.random() * (attack*1.3 - attack*0.7)) + attack*0.7);
+      health -= Math.floor((Math.random() * (newCell.attack*1.3 - newCell.attack*0.7)) + newCell.attack*0.7);
 
       if (health <= 0) {
         this.setState({
           health: 0,
           gameOver: true
         });
-
-        this.handleGameOver();
         return
       }
 
@@ -96,7 +94,8 @@ class App extends React.Component {
       } else {
         this.setState({
           xp: xp += newCell.xp,
-          attack: attack += newCell.xp
+          attack: attack += newCell.xp,
+          spritesAlive: spritesAlive - 1
         });
       }
     }
@@ -113,25 +112,48 @@ class App extends React.Component {
     }
   }
 
-  handleGameOver = () => {
-    console.log('game over')
+  handleRestart = () => {
+    mapValues = mapGenerator();
+    this.setState({
+      floorMap: mapValues.floorMap,
+      health: 100,
+      weapon: 'Punch',
+      xp: 10,
+      attack: 25,
+      pos: {
+        y: mapValues.playerYX[0],
+        x: mapValues.playerYX[1],
+      },
+      sprite: 'na',
+      gameOver: false,
+      spritesAlive: 20
+    })
+  }
+
+  componentWillMount() {
+    //audio.play();
+    window.addEventListener('keydown', this.handlePlayerMove);
   }
 
   render() {
     return(
       <div className='container'>
-        <Stats 
-          health={this.state.health} 
-          weapon={this.state.weapon} 
-          xp={this.state.xp} 
-          sprite={this.state.sprite}
-          attack={this.state.attack}
-          gameOver={this.state.gameOver}
-        />
-        <Board 
-          floorMap={this.state.floorMap} 
-          playerYX={this.state.pos}
-        />
+        <div className='wrap'>
+          <Stats 
+            health={this.state.health} 
+            weapon={this.state.weapon} 
+            xp={this.state.xp} 
+            sprite={this.state.sprite}
+            attack={this.state.attack}
+          />
+          <Board 
+            floorMap={this.state.floorMap} 
+            playerYX={this.state.pos}
+            gameOver={this.state.gameOver}
+            handleRestart={this.handleRestart}
+            spritesAlive={this.state.spritesAlive}
+          />
+        </div>
       </div>
     )
   }

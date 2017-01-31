@@ -1,25 +1,15 @@
 import React from 'react';
 
 const Stats = (props) => {
-
-  if (!props.gameOver) {
-    return(
-      <div className='stats'>
-        Health: {props.health}<br/>
-        Weapon: {props.weapon}<br/>
-        XP: {props.xp}<br/>
-        Sprite Health: {props.sprite}<br/>
-        Attack: {props.attack}
-      </div>
-    )
-  } else {
-    return(
-      <div className='stats'>
-        <div>GAME OVER</div>
-        <button>RESTART</button>
-      </div>
-    )
-  }
+  return(
+    <div className='stats'>
+      <h1 className='title-txt'>DUNGEON CRAWLER</h1>
+      Health: {props.health}<br/>
+      Weapon: {props.weapon}<br/>
+      Skill: {props.xp}<br/>
+      Sprite Health: {props.sprite}<br/>
+    </div>
+  )
 }
 
 export default Stats;
