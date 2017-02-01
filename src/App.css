@@ -21,7 +21,6 @@ button:hover {
 
 .container {
   width: 400px;
-  height: 550px;
   margin: 0 auto;
   background-color: black;
   padding: 40px;
@@ -33,7 +32,6 @@ button:hover {
 }
 
 .stats {
-  height: 120px;
   margin-bottom: 40px;
 }
 
@@ -50,9 +48,9 @@ button:hover {
 }
 
 .game-over-txt {
-  font-size: 60Px;
+  font-size: 65px;
   letter-spacing: 2px;
-  margin-top: 80px;
+  margin-bottom: 30px;
 }
 
 .lose {
@@ -85,12 +83,12 @@ button:hover {
   background-image: url(./img/floor.png);
 }
 
-.sprite:after {
+.enemy:after {
   content: "";
   display: block;
   padding-bottom: 100%;
   background-size: 100% auto;
-  background-image: url(./img/sprite.png);
+  background-image: url(./img/enemy.png);
 }
 
 .boss:after {

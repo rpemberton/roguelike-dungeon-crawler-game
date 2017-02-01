@@ -4,10 +4,11 @@ const Stats = (props) => {
   return(
     <div className='stats'>
       <h1 className='title-txt'>DUNGEON CRAWLER</h1>
+      <p>Use arrow keys or WASD to move. Move into a monster to attack it. Kill all monsters to win.</p>
       Health: {props.health}<br/>
-      Weapon: {props.weapon}<br/>
       Skill: {props.xp}<br/>
-      Sprite Health: {props.sprite}<br/>
+      Weapon: {props.weapon}<br/>
+      Monster Health: {props.enemy}
     </div>
   )
 }

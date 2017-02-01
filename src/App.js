@@ -20,9 +20,9 @@ class App extends React.Component {
         y: mapValues.playerYX[0],
         x: mapValues.playerYX[1],
       },
-      sprite: 'na',
+      enemy: null,
       gameOver: false,
-      spritesAlive: 20
+      enemysAlive: 20
     }
   }
 
@@ -56,7 +56,7 @@ class App extends React.Component {
     let health = this.state.health;
     let attack = this.state.attack;
     let xp = this.state.xp;
-    const spritesAlive = this.state.spritesAlive;
+    const enemysAlive = this.state.enemysAlive;
 
     if (newCell.name === 'health') {
       this.setState({
@@ -71,7 +71,7 @@ class App extends React.Component {
       });
     }
 
-    if (newCell.type === 'sprite') {
+    if (newCell.type === 'enemy') {
       newCell.health -= Math.floor((Math.random() * (attack*1.4 - attack*0.6)) + attack*0.6);
       health -= Math.floor((Math.random() * (newCell.attack*1.4 - newCell.attack*0.6)) + newCell.attack*0.6);
 
@@ -85,7 +85,7 @@ class App extends React.Component {
 
       this.setState({
         health: health >= 0 ? health : 0,
-        sprite: newCell.health > 0 ? newCell.health : 'dead',
+        enemy: newCell.health > 0 ? newCell.health : null,
         floorMap: floorMap,
       });
 
@@ -95,7 +95,7 @@ class App extends React.Component {
         this.setState({
           xp: xp += newCell.xp,
           attack: attack += newCell.xp,
-          spritesAlive: spritesAlive - 1
+          enemysAlive: enemysAlive - 1
         });
       }
     }
@@ -124,9 +124,9 @@ class App extends React.Component {
         y: mapValues.playerYX[0],
         x: mapValues.playerYX[1],
       },
-      sprite: 'na',
+      enemy: null,
       gameOver: false,
-      spritesAlive: 20
+      enemysAlive: 20
     })
   }
 
@@ -143,7 +143,7 @@ class App extends React.Component {
             health={this.state.health} 
             weapon={this.state.weapon} 
             xp={this.state.xp} 
-            sprite={this.state.sprite}
+            enemy={this.state.enemy}
             attack={this.state.attack}
           />
           <Board 
@@ -151,7 +151,7 @@ class App extends React.Component {
             playerYX={this.state.pos}
             gameOver={this.state.gameOver}
             handleRestart={this.handleRestart}
-            spritesAlive={this.state.spritesAlive}
+            enemysAlive={this.state.enemysAlive}
           />
         </div>
       </div>

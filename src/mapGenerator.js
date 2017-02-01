@@ -11,7 +11,7 @@ function mapGenerator() {
 
   const attempts = 500;
 
-  const spritesTotal = 20;
+  const enemysTotal = 20;
   const healthTotal = 12;
 
   const wall = {
@@ -35,19 +35,19 @@ function mapGenerator() {
     name: 'player'
   }
 
-  const sprite = {
-    type: 'sprite',
-    name: 'sprite',
+  const enemy = {
+    type: 'enemy',
+    name: 'enemy',
     health: 100,
     attack: 10,
     xp: 2
   }
 
   const boss = {
-    type: 'sprite',
+    type: 'enemy',
     name: 'boss',
     health: 300,
-    attack: 25,
+    attack: 40,
     xp: 0
   }
 
@@ -197,7 +197,7 @@ function mapGenerator() {
     }
   }
 
-  addItem(sprite, spritesTotal);
+  addItem(enemy, enemysTotal);
   addItem(health, healthTotal);
   addItem(boss, 1);
   addItem(sword, 1);

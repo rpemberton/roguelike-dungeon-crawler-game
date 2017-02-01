@@ -11,7 +11,7 @@ const Board = (props) => {
     )
   }
 
-  if (props.spritesAlive < 1) {
+  if (props.enemysAlive < 1) {
     return(
       <div className='board'>
         <h1 className='game-over-txt win'>YOU WIN!</h1>
