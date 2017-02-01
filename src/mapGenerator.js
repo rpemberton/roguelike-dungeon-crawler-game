@@ -4,7 +4,7 @@ function mapGenerator() {
 
   const rows = 50;
   const cols = 50;
-  const rooms = 13;
+  const rooms = 11;
   const minSize = 5;
   const maxSize = 9;
   const padding = 5;
