@@ -1,9 +1,13 @@
 function mapGenerator() {
+  let floorMap = [];
+  let playerYX = [];
+
   const rows = 50;
   const cols = 50;
   const rooms = 13;
   const minSize = 5;
   const maxSize = 9;
+  const padding = 5;
 
   const attempts = 500;
 
@@ -47,19 +51,17 @@ function mapGenerator() {
     xp: 0
   }
 
-  const sword = {
-    type: 'weapon',
-    name: 'sword',
-    damage: 10
-  }
-
   const dagger = {
     type: 'weapon',
     name: 'dagger',
     damage: 6
   }
 
-  let floorMap = [];
+  const sword = {
+    type: 'weapon',
+    name: 'sword',
+    damage: 10
+  }
 
   // create blank floorMap
   for (let i = 0; i < cols; i++) {
@@ -69,11 +71,11 @@ function mapGenerator() {
   // check room + width/height does not fall outside map
   function isNotOutsideMap(floorMap, room) {
     // top and bottom
-    if (room.y < 1 || room.y + room.h > rows - 1) {
+    if (room.y < padding || room.y + room.h > rows - padding) {
       return false;
     }
     // left and right
-    if (room.x < 1 || room.x + room.w > cols - 1) {
+    if (room.x < padding || room.x + room.w > cols - padding) {
       return false;
     }
     return true;
@@ -158,8 +160,6 @@ function mapGenerator() {
     count++;
   }
 
-  let playerYX = [];
-
   // randomly choose location for item
   function placeItem(itemType) {
     const y = Math.floor(Math.random() * (cols - 1 - 1)) + 1;
@@ -178,8 +178,7 @@ function mapGenerator() {
     return [y, x];
   }
 
-  playerYX = [];
-
+  // handles attempts to add item to map - calls placeItem
   function addItem(itemType, itemTotal) {
     let i = 0;
     let newItem = false;
@@ -196,7 +195,6 @@ function mapGenerator() {
       }
       itemAttempts++
     }
-
   }
 
   addItem(sprite, spritesTotal);

@@ -72,8 +72,8 @@ class App extends React.Component {
     }
 
     if (newCell.type === 'sprite') {
-      newCell.health -= Math.floor((Math.random() * (attack*1.3 - attack*0.7)) + attack*0.7);
-      health -= Math.floor((Math.random() * (newCell.attack*1.3 - newCell.attack*0.7)) + newCell.attack*0.7);
+      newCell.health -= Math.floor((Math.random() * (attack*1.4 - attack*0.6)) + attack*0.6);
+      health -= Math.floor((Math.random() * (newCell.attack*1.4 - newCell.attack*0.6)) + newCell.attack*0.6);
 
       if (health <= 0) {
         this.setState({
@@ -110,7 +110,7 @@ class App extends React.Component {
         pos: newPos
       });
     }
-  }
+  }  
 
   handleRestart = () => {
     mapValues = mapGenerator();

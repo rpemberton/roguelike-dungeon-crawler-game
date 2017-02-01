@@ -114,7 +114,11 @@ button:hover {
   display: block;
   padding-bottom: 100%;
   background-size: 100% auto;
-  background-image: url(https://s19.postimg.org/bp3swnjbn/short_black.png), url(https://s19.postimg.org/wgvom5vbn/shirt_vest.png), url(https://s19.postimg.org/in7x2lhg3/pants_black.png), url(https://s19.postimg.org/o1644nsgj/short_brown.png), url(https://s19.postimg.org/anyytscyb/human_m.png);
+  background-image: url(./img/hair.png), 
+                    url(./img/shirt.png), 
+                    url(./img/pants.png), 
+                    url(./img/boots.png), 
+                    url(./img/body.png);
 }
 
 .sword:after {
