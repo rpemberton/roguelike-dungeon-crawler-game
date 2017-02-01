@@ -50,13 +50,13 @@ function mapGenerator() {
   const sword = {
     type: 'weapon',
     name: 'sword',
-    damage: 6
+    damage: 10
   }
 
-  const axe = {
+  const dagger = {
     type: 'weapon',
-    name: 'axe',
-    damage: 10
+    name: 'dagger',
+    damage: 6
   }
 
   let floorMap = [];
@@ -203,7 +203,7 @@ function mapGenerator() {
   addItem(health, healthTotal);
   addItem(boss, 1);
   addItem(sword, 1);
-  addItem(axe, 1);
+  addItem(dagger, 1);
   addItem(player, 1);
 
   // return final floorMap array

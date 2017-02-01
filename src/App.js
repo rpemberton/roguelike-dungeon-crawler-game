@@ -117,7 +117,7 @@ class App extends React.Component {
     this.setState({
       floorMap: mapValues.floorMap,
       health: 100,
-      weapon: 'Punch',
+      weapon: 'knuckles',
       xp: 10,
       attack: 25,
       pos: {
@@ -165,6 +165,5 @@ window.addEventListener("keydown", function(e) {
       e.preventDefault();
   }
 }, false);
-
 
 export default App;

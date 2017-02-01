@@ -50,8 +50,8 @@ button:hover {
 }
 
 .game-over-txt {
-  font-size: 60px;
-  letter-spacing: 4px;
+  font-size: 60Px;
+  letter-spacing: 2px;
   margin-top: 80px;
 }
 
@@ -125,7 +125,7 @@ button:hover {
   background-image: url(./img/double_sword.png);
 }
 
-.axe:after {
+.dagger:after {
   content: "";
   display: block;
   padding-bottom: 100%;

@@ -5,8 +5,8 @@ const Cell = (props) => {
   if (props.cell.type !== 'wall') {
     cellType = 'floor ' + props.cell.name;
   }
-  if (props.black) {
-    cellType = props.black;
+  if (props.fog) {
+    cellType = 'fog';
   }
 
   return(
