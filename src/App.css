@@ -123,14 +123,6 @@ button:hover {
                     url(./img/body.png);
 }
 
-.sword:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-  background-size: 100% auto;
-  background-image: url(./img/double_sword.png);
-}
-
 .dagger:after {
   content: "";
   display: block;

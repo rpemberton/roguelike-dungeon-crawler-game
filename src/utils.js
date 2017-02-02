@@ -7,7 +7,7 @@ const minSize = 5;
 const maxSize = 9;
 const padding = 5;
 
-const attempts = 500;
+const attempts = 1000;
 
 const enemiesTotal = 8;
 const healthTotal = 10;
@@ -38,18 +38,12 @@ const enemy = {
   name: 'enemy',
   health: 100,
   attack: 10,
-  xp: 2
+  xp: 5
 }
 
 const dagger = {
   type: 'weapon',
   name: 'dagger',
-  damage: 6
-}
-
-const sword = {
-  type: 'weapon',
-  name: 'sword',
   damage: 10
 }
 
@@ -154,7 +148,6 @@ export function mapGenerator() {
 
   floorMap = addItem(floorMap, enemy, enemiesTotal);
   floorMap = addItem(floorMap, health, healthTotal);
-  floorMap = addItem(floorMap, sword, 1);
   floorMap = addItem(floorMap, dagger, 1);
   floorMap = addItem(floorMap, player, 1);
 
