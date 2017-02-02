@@ -11,7 +11,7 @@ const Board = (props) => {
     )
   }
 
-  if (props.enemysAlive < 1) {
+  if (props.gameComplete) {
     return(
       <div className='board'>
         <h1 className='game-over-txt win'>YOU WIN!</h1>
@@ -24,7 +24,7 @@ const Board = (props) => {
 
   const rowsArr = props.floorMap.map((row, i) => {
     if (i > y - 5 && i < y + 5) {
-      return <Row id={'r' + i} key={i} rowNumber={i} row={row} fog={true} playerYX={props.playerYX}/>
+      return <Row id={'r' + i} key={i} rowNumber={i} row={row} playerYX={props.playerYX}/>
     }
     return null
   })

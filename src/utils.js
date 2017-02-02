@@ -1,68 +1,60 @@
-function mapGenerator() {
+let playerYX = [];
+
+const rows = 40;
+const cols = 40;
+const rooms = 5;
+const minSize = 5;
+const maxSize = 9;
+const padding = 5;
+
+const attempts = 500;
+
+const enemiesTotal = 8;
+const healthTotal = 10;
+
+const wall = {
+  type: 'wall',
+  name: 'wall'
+}
+
+const floor = {
+  type: 'floor',
+  name: 'floor'
+}
+
+const health = {
+  type: 'health',
+  name: 'health',
+  value: 100
+}
+
+const player = {
+  type: 'player',
+  name: 'player'
+}
+
+const enemy = {
+  type: 'enemy',
+  name: 'enemy',
+  health: 100,
+  attack: 10,
+  xp: 2
+}
+
+const dagger = {
+  type: 'weapon',
+  name: 'dagger',
+  damage: 6
+}
+
+const sword = {
+  type: 'weapon',
+  name: 'sword',
+  damage: 10
+}
+
+export function mapGenerator() {
   let floorMap = [];
-  let playerYX = [];
-
-  const rows = 50;
-  const cols = 50;
-  const rooms = 11;
-  const minSize = 5;
-  const maxSize = 9;
-  const padding = 5;
-
-  const attempts = 500;
-
-  const enemysTotal = 20;
-  const healthTotal = 12;
-
-  const wall = {
-    type: 'wall',
-    name: 'wall'
-  }
-
-  const floor = {
-    type: 'floor',
-    name: 'floor'
-  }
-
-  const health = {
-    type: 'health',
-    name: 'health',
-    value: 100
-  }
-
-  const player = {
-    type: 'player',
-    name: 'player'
-  }
-
-  const enemy = {
-    type: 'enemy',
-    name: 'enemy',
-    health: 100,
-    attack: 10,
-    xp: 2
-  }
-
-  const boss = {
-    type: 'enemy',
-    name: 'boss',
-    health: 300,
-    attack: 40,
-    xp: 0
-  }
-
-  const dagger = {
-    type: 'weapon',
-    name: 'dagger',
-    damage: 6
-  }
-
-  const sword = {
-    type: 'weapon',
-    name: 'sword',
-    damage: 10
-  }
-
   // create blank floorMap
   for (let i = 0; i < cols; i++) {
     floorMap.push(Array(rows).fill(wall));
@@ -118,7 +110,7 @@ function mapGenerator() {
       return newRoom;
     }
   }
-  
+
   // call addRoom until there are enough rooms
   let i = 0;
   let roomsArr = [];
@@ -160,55 +152,50 @@ function mapGenerator() {
     count++;
   }
 
-  // randomly choose location for item
-  function placeItem(itemType) {
-    const y = Math.floor(Math.random() * (cols - 1 - 1)) + 1;
-    const x = Math.floor(Math.random() * (rows - 1 - 1)) + 1;
-
-    for (let i = y - 1; i <= y + 1; i++) {
-      for (let j = x - 1; j <= x + 1; j++) {
-        if (floorMap[i][j] !== floor) {
-          return false;
-        }
-      }
-    }
-
-    floorMap[y][x] = itemType;
-
-    return [y, x];
-  }
-
-  // handles attempts to add item to map - calls placeItem
-  function addItem(itemType, itemTotal) {
-    let i = 0;
-    let newItem = false;
-    let itemAttempts = 0;
-    while (i < itemTotal && itemAttempts < attempts) {
-      newItem = placeItem(itemType);
-      if (newItem) {
-        i++
-
-        if (itemType === player) {
-          playerYX = newItem
-        }
-
-      }
-      itemAttempts++
-    }
-  }
-
-  addItem(enemy, enemysTotal);
-  addItem(health, healthTotal);
-  addItem(boss, 1);
-  addItem(sword, 1);
-  addItem(dagger, 1);
-  addItem(player, 1);
+  floorMap = addItem(floorMap, enemy, enemiesTotal);
+  floorMap = addItem(floorMap, health, healthTotal);
+  floorMap = addItem(floorMap, sword, 1);
+  floorMap = addItem(floorMap, dagger, 1);
+  floorMap = addItem(floorMap, player, 1);
 
   // return final floorMap array
   return {
     floorMap: floorMap,
-    playerYX: playerYX
+    playerYX: playerYX,
+    enemiesTotal: enemiesTotal
   };
 }
 
-export default mapGenerator;
+// handles attempts to add item to map - calls placeItem
+export function addItem(map, itemType, itemTotal) {
+  let newMap = JSON.parse(JSON.stringify(map));
+  // randomly choose location for item
+  function placeItem(itemType) {
+    const y = Math.floor(Math.random() * (cols - 1 - 1)) + 1;
+    const x = Math.floor(Math.random() * (rows - 1 - 1)) + 1;
+    for (let i = y - 1; i <= y + 1; i++) {
+      for (let j = x - 1; j <= x + 1; j++) {
+        if (newMap[i][j].type !== 'floor') {
+          return false;
+        }
+      }
+    }
+    newMap[y][x] = itemType;
+    return [y, x];
+  }
+
+  let i = 0;
+  let newItem = false;
+  let itemAttempts = 0;
+  while (i < itemTotal && itemAttempts < attempts) {
+    newItem = placeItem(itemType);
+    if (newItem) {
+      i++
+      if (itemType === player) {
+        playerYX = newItem
+      }
+    }
+    itemAttempts++
+  }
+  return newMap;
+}

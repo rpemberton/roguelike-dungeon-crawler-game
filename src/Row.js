@@ -10,19 +10,19 @@ const Row = (props) => {
     if (i > x - 5 && i < x + 5) {
 
       if ((props.rowNumber === y - 4 || props.rowNumber === y + 4) && i !== x) {
-        return <Cell id={'c' + i} key={i} cell={cell} fog={props.fog} />
+        return <Cell id={'c' + i} key={i} cell={cell} fog={true} />
       }
 
       if ((props.rowNumber === y - 3 || props.rowNumber === y + 3) && (i < x - 1 || i > x + 1)) {
-        return <Cell id={'c' + i} key={i} cell={cell} fog={props.fog} />
+        return <Cell id={'c' + i} key={i} cell={cell} fog={true} />
       }
 
       if ((props.rowNumber === y - 2 || props.rowNumber === y + 2) && (i < x - 2 || i > x + 2)) {
-        return <Cell id={'c' + i} key={i} cell={cell} fog={props.fog} />
+        return <Cell id={'c' + i} key={i} cell={cell} fog={true} />
       }
 
       if ((props.rowNumber === y - 1 || props.rowNumber === y + 1)  && (i < x - 3 || i > x + 3)) {
-        return <Cell id={'c' + i} key={i} cell={cell} fog={props.fog} />
+        return <Cell id={'c' + i} key={i} cell={cell} fog={true} />
       }
 
       return <Cell id={'c' + i} key={i} cell={cell} />

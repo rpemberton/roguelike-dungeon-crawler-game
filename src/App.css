@@ -53,6 +53,10 @@ button:hover {
   margin-bottom: 30px;
 }
 
+.lastChallenge {
+  color: orange;
+}
+
 .lose {
   color: red;
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import Stats from './Stats'
 import Board from './Board';
-import mapGenerator from './mapGenerator';
+import {mapGenerator, addItem} from './utils';
 import './App.css';
 
-//const audio = new Audio("http://zeldauniverse.s3.amazonaws.com/soundtracks/alinktothepastost/dark_world_dungeon.mp3");
-let mapValues = mapGenerator();
+let temp = mapGenerator();
+let mapValues = JSON.parse(JSON.stringify(temp));
 
 class App extends React.Component {  
   constructor() {
@@ -22,11 +22,13 @@ class App extends React.Component {
       },
       enemy: null,
       gameOver: false,
-      enemysAlive: 20
+      enemiesAlive: mapValues.enemiesTotal,
+      gameComplete: false
     }
   }
 
   handlePlayerMove = (e) => {
+
     let floorMap = JSON.parse(JSON.stringify(this.state.floorMap));
     let oldPos = JSON.parse(JSON.stringify(this.state.pos));
     let newPos = JSON.parse(JSON.stringify(this.state.pos));
@@ -56,7 +58,23 @@ class App extends React.Component {
     let health = this.state.health;
     let attack = this.state.attack;
     let xp = this.state.xp;
-    const enemysAlive = this.state.enemysAlive;
+    const enemiesAlive = this.state.enemiesAlive;
+
+    if (enemiesAlive === 0) {
+      const boss = {
+        type: 'enemy',
+        name: 'boss',
+        health: 300,
+        attack: 35,
+        xp: 0
+      }
+      floorMap = addItem(floorMap, boss, 1);
+      this.setState({
+        floorMap: floorMap,
+        enemiesAlive: null
+      })
+      return
+    }
 
     if (newCell.name === 'health') {
       this.setState({
@@ -95,9 +113,15 @@ class App extends React.Component {
         this.setState({
           xp: xp += newCell.xp,
           attack: attack += newCell.xp,
-          enemysAlive: enemysAlive - 1
+          enemiesAlive: enemiesAlive - 1
         });
       }
+    }
+
+    if (newCell.name === 'boss' && newCell.health < 1) {
+      this.setState({
+        gameComplete: true
+      })
     }
 
     if (newCell.name !== 'wall') {
@@ -126,12 +150,12 @@ class App extends React.Component {
       },
       enemy: null,
       gameOver: false,
-      enemysAlive: 20
+      enemiesAlive: mapValues.enemiesTotal,
+      gameComplete: false
     })
   }
 
   componentWillMount() {
-    //audio.play();
     window.addEventListener('keydown', this.handlePlayerMove);
   }
 
@@ -145,13 +169,15 @@ class App extends React.Component {
             xp={this.state.xp} 
             enemy={this.state.enemy}
             attack={this.state.attack}
+            enemiesAlive={this.state.enemiesAlive}
           />
           <Board 
-            floorMap={this.state.floorMap} 
+            floorMap={this.state.floorMap}
             playerYX={this.state.pos}
             gameOver={this.state.gameOver}
             handleRestart={this.handleRestart}
-            enemysAlive={this.state.enemysAlive}
+            enemiesAlive={this.state.enemiesAlive}
+            gameComplete={this.state.gameComplete}
           />
         </div>
       </div>
